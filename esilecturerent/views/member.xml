@@ -1,0 +1,14 @@
+<odoo>
+    <record id = "mymemberview" model = "ir.ui.view">
+        <field name = "name">Member</field>
+        <field name = "priority">15</field>
+        <field name = "model">res.partner</field>
+        <field name = "inherit_id" ref = "base.view_partner_form"/>
+        <field name = "arch" type = "xml">
+            <xpath expr='//field[@name="lang"]' position='after'>
+                <field name = "number" />
+                <field name = "rent_ids" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

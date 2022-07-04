@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- Livre Form view -->
+    <record id="view_form_lecture_livre" model="ir.ui.view">
+        <field name="name">Lecture livre Form</field>
+        <field name="model">lecture.livre</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button class="oe_stat_button" type="object" name="addLike"
+                            icon="fa-thumbs-up">
+                            <field string="Likes" name="count_likes" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group name="group_top">
+                        <group name="group_left">
+                            <field name="nom"/>
+                            <field name="auteurs" widget="many2many_tags"/>
+                            <field name="nb_pages"/>
+                        </group>
+                        <group name="group_right">
+                            <field name="date_publication"/>
+                            <style>
+                                .openerp .petiteImage > img { height: 5000px; width: 9000px; }
+                                .openerp .oe_form .oe_form_field_image img { max-width:556px; max-height: 956px; }
+                            </style>
+                            <field name="image" widget="image" class="petiteImage"/>
+                        </group>
+                        <group name="group_bottom">
+                            <field name="description" widget="html"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Livre List view -->
+    <record id="view_tree_lecture_livre" model="ir.ui.view">
+        <field name="name">Lecture livre Tree</field>
+        <field name="model">lecture.livre</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nom"/>
+                <field name="date_publication"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Livre Search view -->
+    <record id="view_filter_lecture_livre" model="ir.ui.view">
+        <field name="name">Lecture_Livre Filter</field>
+        <field name="model">lecture.livre</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="auteurs"/>
+                <filter string="Without Authors" name="filter_whithout_authors" domain="[('auteurs','=',False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Autheur view -->
+    <record id="view_filtre_author" model="ir.ui.view">
+        <field name="name">Lecture_Livre Filter</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="author"/>
+                <filter string="Auteurs" name="filtre_auteur" domain="[('author','=',True)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!--  Graphe view  -->
+    <record id="graph" model="ir.ui.view">
+        <field name="name">Graph_view</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <graph string="Graphe" type="bar">
+                <field name="name"/>
+                <field name="count_books" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!--  Product view  -->
+    <record id="view_product_form_inherit" model="ir.ui.view">
+        <field name="name">product.template.common.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_information']" position="after">
+                <page string="Library">
+                    <group col="2" colspan="2">
+                        <field name="collection" widget="many2many_tags"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!--  Action vueListe  -->
+    <record model="ir.actions.act_window" id="contact_list_action">
+        <field name="name">Livres</field>
+        <field name="res_model">lecture.livre</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Action to open res.partner list -->
+    <record model="ir.actions.act_window" id="list_action_auteurs">
+        <field name="name">Auteurs</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{"search_default_filtre_auteur":1}</field>
+    </record>
+
+    <!--  Action to open graph  -->
+    <record model="ir.actions.act_window" id="graphe_auteurs">
+        <field name="name">Graphe Auteurs</field>
+        <field name="view_mode">graph</field>
+        <field name="res_model">res.partner</field>
+    </record>
+
+    <!--  Action product  -->
+    <record model="ir.actions.act_window" id="product_inherit_view">
+        <field name="name">Produits - Livres</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_lecture_livre" name="Lecture"/>
+    <menuitem id="configuration_menu" name="Vues" parent="menu_lecture_livre"/>
+    <menuitem id="vueListe" name="Listes de livres" parent="configuration_menu" action="contact_list_action"/>
+    <menuitem id="Auteurs" name="Auteurs" parent="configuration_menu" action="list_action_auteurs"/>
+    <menuitem id="Stats" name="Statistiques" parent="configuration_menu" action="graphe_auteurs"/>
+    <menuitem id="Products" name="Products" parent="configuration_menu" action="product_inherit_view"/>
+    <menuitem id="stock_picking" name="Inventory Overview" parent="configuration_menu" action="stock.stock_picking_type_action"/>
+    <menuitem id="point_of_sale" name="Point of Sale" parent="configuration_menu" action="point_of_sale.action_pos_config_kanban"/>
+</odoo>

@@ -1,0 +1,69 @@
+<odoo>
+    <!-- list view prets -->
+    <record id="view_prets_list" model="ir.ui.view">
+        <field name="name">Prets Tree</field>
+        <field name="model">esilecturerent.rent</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="book_id"/>
+                <field name="member_id"/>
+                <field name="state"/>
+                <field name="return_date"/>
+            </tree>
+        </field>
+    </record>
+
+<!-- form rent -->
+
+    <record id="view_form_rent" model="ir.ui.view">
+        <field name="name">Rent Form</field>
+        <field name="model">esilecturerent.rent</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="set_to_perdu" type="object"
+                            string="Livre perdu" class="oe_highlight"
+                            attrs="{'invisible':[('state', '=', 'exemplaireprete')]}"/>
+                    <button string="Livre retourne" type="object" name="set_to_retourne"
+                            attrs="{'invisible': [('state','=','exemplaireretourne')]}" class="oe_edit_only"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group name="group_top">
+                        <group name="group_left">
+                            <field name="book_id"/>
+                            <field name="member_id"/>
+                        </group>
+                        <group name="group_right">
+                            <field name="rent_date"/>
+                            <field name="return_date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+<!--    les filtres  -->
+    <record id="view_filtre_pret1" model="ir.ui.view">
+        <field name="name">pret Filter 1</field>
+        <field name="model">esilecturerent.rent</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="state"/>
+                <filter string="Livres emprunte" name="filtre_pret_emprunt" domain="[('state','=','exemplaireprete')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_filtre_pret2" model="ir.ui.view">
+        <field name="name">pret Filter 2</field>
+        <field name="model">esilecturerent.rent</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="state"/>
+                <filter string="Livres perdu" name="filtre_pret_perdu" domain="[('state','=','exemplaireperdu')]"/>
+            </search>
+        </field>
+    </record>
+</odoo>

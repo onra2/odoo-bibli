@@ -1,0 +1,20 @@
+<odoo>
+    <record model="ir.actions.act_window" id="showMembre">
+        <field name="name">Membres</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="showlistepret">
+        <field name="name">Liste de prets</field>
+        <field name="res_model">esilecturerent.rent</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{"search_default_filtre_pret_emprunt":1}</field>
+        <field name="context">{"search_default_filtre_pret_perdu":0}</field>
+    </record>
+
+    <menuitem id="membervue" name="Membres" parent="lecture.menu_lecture_livre" action="showMembre"/>
+    <menuitem id="rentvue" name="Liste des prets" parent="lecture.menu_lecture_livre" action="showlistepret"/>
+    <menuitem id="formulairepret" name="Formulaire d'un pret" parent="lecture.menu_lecture_livre"/>
+<!--    <menuitem id="rentvue" name="Formulaire d'un pret" parent="lecture.configuration_menu" action="contact_list_action"/>-->
+</odoo>

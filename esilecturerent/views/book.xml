@@ -1,0 +1,40 @@
+<odoo>
+<record id="view_form_lecture_livre" model="ir.ui.view">
+        <field name="priority">15</field>
+        <field name="name">Lecture livre Form</field>
+        <field name="model">lecture.livre</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button class="oe_stat_button" type="object" name="addLike"
+                            icon="fa-thumbs-up">
+                            <field string="Likes" name="count_likes" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group name="group_top">
+                        <group name="group_left">
+                            <field name="nom"/>
+                            <field name="auteurs" widget="many2many_tags"/>
+                            <field name="nb_pages"/>
+                        </group>
+                        <group name="group_right">
+                            <field name="date_publication"/>
+                            <style>
+                                .openerp .petiteImage > img { height: 5000px; width: 9000px; }
+                                .openerp .oe_form .oe_form_field_image img { max-width:556px; max-height: 956px; }
+                            </style>
+                            <field name="image" widget="image" class="petiteImage"/>
+                        </group>
+                        <group name="group_bottom">
+                            <field name="description" widget="html"/>
+<!--                            <field name="count_rent"/>-->
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

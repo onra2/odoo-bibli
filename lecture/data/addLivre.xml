@@ -1,0 +1,109 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="1">
+        <!-- On cree des res_partner auteur qui sont mis a True -->
+        <record id="jkRowling" model="res.partner">
+            <field name="name">J.K. Rowling</field>
+            <field name="author" eval="True"/>
+        </record>
+        <record id="frankHerbert" model="res.partner">
+            <field name="name">Frank Herbert</field>
+            <field name="author" eval="True"/>
+        </record>
+        <record id="Donald" model="res.partner">
+            <field name="name">Donald E. Knuth</field>
+            <field name="author" eval="True"/>
+        </record>
+        <record id="presseBXL" model="res.partner">
+            <field name="name">Presses Universitaires de Bruxelles </field>
+        </record>
+        <!-- On cree des livres et on ajoute les auteurs creer precedemment en tant qu'auteur des livres -->
+        <record id="livre_1" model="lecture.livre">
+            <field name="nom">Harry Potter, I : Harry Potter à l'école des sorciers</field>
+            <field name="image" type="base64" file="lecture/data/harryPotter1.jpg"/>
+            <field name="description" type="html">
+                <h2>Quatrième de couverture</h2>
+                <br></br>
+                <p>Harry Potter est un garçon ordinaire.
+                Mais le jour de ses onze ans, son existence bascule :
+                un géant vient le chercher pour l'emmener dans une école de sorciers.
+                Quel mystère entoure donc sa naissance et qui est l'effroyable V...,
+                le mage dont personne n'ose prononcer le nom ? Voler à cheval sur des balais,
+                jeter des sorts, combattre les Trolls : Harry Potter se révèle un sorcier vraiment doué.
+                Quand il décide, avec ses amis, d'explorer les moindres recoins de son école,
+                il va se trouver entraîné dans d'extraordinaires aventures.</p>
+            </field>
+            <field name="date_publication">2017-10-12</field>
+            <field name="nb_pages">320</field>
+            <field name="auteurs" eval="[(4, ref('jkRowling'), None)]"/>
+        </record>
+        <record id="livre_2" model="lecture.livre">
+            <field name="nom">Harry Potter et la chambre des secrets</field>
+            <field name="image" type="base64" file="lecture/data/harryPotter2.jpg"/>
+            <field name="description" type="html">
+                <h2>Quatrième de couverture</h2>
+                <br></br>
+                <p>Harry Potter fait une rentrée fracassante en voiture volante à l'école des sorciers.
+                Cette deuxième année ne s'annonce pas de tout repos...
+                surtout depuis qu'une étrange malédiction s'est abattue sur les élèves.
+                Entre les cours de potion magique, les matches de Quidditch et les combats de mauvais sorts,
+                Harry trouvera-t-il le temps de percer le mystère de la Chambre des Secrets ?
+                Un livre magique pour sorciers confirmés.</p>
+            </field>
+            <field name="date_publication">2017-10-12</field>
+            <field name="nb_pages">368</field>
+            <field name="auteurs" eval="[(4, ref('jkRowling'), None)]"/>
+        </record>
+        <record id="livre_3" model="lecture.livre">
+            <field name="nom">Harry Potter, III : Harry Potter et le prisonnier d'Azkaban</field>
+            <field name="image" type="base64" file="lecture/data/harryPotter3.jpg"/>
+            <field name="description" type="html">
+                <h2>Quatrième de couverture</h2>
+                <br></br>
+                <p>Sirius Black, le dangereux criminel qui s'est échappé de la forteresse d'Azkaban,
+                recherche Harry Potter. C'est donc sous bonne garde que l'apprenti sorcier fait
+                sa troisième rentrée.
+                Au programme : des cours de divination, la fabrication d'une potion de ratatinage, le dressage des hippogriffes...
+                Mais Harry est-il vraiment à l'abri du danger qui le menace ?
+                Un livre époustouflant qui vous emportera dans un tourbillon de surprises et d'émotions.</p>
+            </field>
+            <field name="date_publication">2017-10-12</field>
+            <field name="nb_pages">448</field>
+            <field name="auteurs" eval="[(4, ref('jkRowling'), None)]"/>
+        </record>
+        <record id="livre_4" model="lecture.livre">
+            <field name="nom">Dune - Tome 1</field>
+            <field name="image" type="base64" file="lecture/data/dune1.jpg"/>
+            <field name="description" type="html">
+                <h2>Biographie de l'auteur</h2>
+                <br></br>
+                <p>Véritable légende dans l'univers de la SF, l'écrivain américain Frank Herbert (1920 - 1986)
+                est mondialement connu pour sa série Dune,
+                vendue à des millions d'exemplaires.
+                En France, ses œuvres majeures ont été publiées dans la collection " Ailleurs &amp; Demain ".</p>
+            </field>
+            <field name="date_publication">2020-10-01</field>
+            <field name="nb_pages">838</field>
+            <field name="auteurs" eval="[(4, ref('frankHerbert'), None)]"/>
+        </record>
+
+        <!-- On cree un produit collection des 3 premiers Harry Potter -->
+        <record id="produit_1" model="product.template">
+            <field name="collection" eval="[(6,0,[ref('livre_1'),ref('livre_2'),ref('livre_3')], None)]"/>
+            <field name="name">Coffret Potter</field>
+            <field name="description">Collection des 3 premiers Harry Potter!</field>
+            <field name="list_price">300</field>
+            <field name="image_1920" type="base64" file="lecture/data/harryPotterCollection.jpg"/>
+            <field name="available_in_pos">True</field>
+        </record>
+
+        <!-- On cree un stock et on met le produit dedans -->
+        <record id="stock_inventory_line_1" model="stock.inventory.line">
+            <field name="product_id" ref="produit_1"/>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="inventory_id" ref="stock.stock_inventory_0"/>
+            <field name="product_qty">16.0</field>
+            <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+        </record>
+    </data>
+</odoo>
